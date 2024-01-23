@@ -1,0 +1,173 @@
+@import 'yma-csskit/bem.scss';
+
+@include b(scrollbar) {
+    position: relative;
+    overflow: hidden !important;
+    overflow-anchor: none;
+    -ms-overflow-style: none;
+    touch-action: auto;
+    -ms-touch-action: auto;
+    height: 100%;
+
+    @include e(track-x) {
+        display: none;
+        opacity: 0;
+        transition: background-color 0.2s linear, opacity 0.2s linear;
+        height: 15px;
+        bottom: 0px;
+        position: absolute;
+
+        @include pseudo(hover) {
+            background-color: #eee;
+            opacity: 0.9;
+        }
+
+        @include pseudo(focus) {
+            background-color: #eee;
+            opacity: 0.9;
+        }
+
+        @include m(clicking) {
+            background-color: #eee;
+            opacity: 0.9;
+        }
+    }
+
+    @include e(track-y) {
+        display: none;
+        opacity: 0;
+        transition: background-color 0.2s linear, opacity 0.2s linear;
+        width: 15px;
+        right: 0;
+        position: absolute;
+
+        @include pseudo(hover) {
+            background-color: #eee;
+            opacity: 0.9;
+        }
+
+        @include pseudo(focus) {
+            background-color: #eee;
+            opacity: 0.9;
+        }
+
+        @include m(clicking) {
+            background-color: #eee;
+            opacity: 0.9;
+        }
+    }
+
+    @include m(active-x) {
+        @include e(track-x) {
+            display: block;
+            background-color: transparent;
+        }
+    }
+
+    @include m(active-y) {
+        @include e(track-y) {
+            display: block;
+            background-color: transparent;
+        }
+    }
+
+    @include pseudo(hover) {
+        @include e((track-x, track-y)) {
+            opacity: 0.6;
+        }
+    }
+
+    @include m(focus) {
+        @include e((track-x, track-y)) {
+            opacity: 0.6;
+        }
+    }
+
+    @include m(scrolling-x) {
+        @include e(track-x) {
+            opacity: 0.6;
+        }
+    }
+
+    @include m(scrolling-y) {
+        @include e(track-y) {
+            opacity: 0.6;
+        }
+    }
+
+    @include e(thumb-x) {
+        background-color: #aaa;
+        border-radius: 6px;
+        transition: background-color 0.2s linear, height 0.2s ease-in-out;
+        height: 6px;
+        bottom: 2px;
+        position: absolute;
+    }
+
+    @include e(thumb-y) {
+        background-color: #aaa;
+        border-radius: 6px;
+        transition: background-color 0.2s linear, width 0.2s ease-in-out;
+        width: 6px;
+        right: 2px;
+        position: absolute;
+    }
+
+    @include e(track-x) {
+        @include pseudo(hover) {
+            @include e(thumb-x) {
+                background-color: #999;
+                height: 11px;
+            }
+        }
+
+        @include pseudo(focus) {
+            @include e(thumb-x) {
+                background-color: #999;
+                height: 11px;
+            }
+        }
+
+        @include m(clicking) {
+            @include e(thumb-x) {
+                background-color: #999;
+                height: 11px;
+            }
+        }
+    }
+
+    @include e(track-y) {
+        @include pseudo(hover) {
+            @include e(thumb-y) {
+                background-color: #999;
+                width: 11px;
+            }
+        }
+
+        @include pseudo(focus) {
+            @include e(thumb-y) {
+                background-color: #999;
+                width: 11px;
+            }
+        }
+
+        @include m(clicking) {
+            @include e(thumb-y) {
+                background-color: #999;
+                width: 11px;
+            }
+        }
+    }
+}
+
+@supports (-ms-overflow-style: none) {
+    @include b(scroll) {
+        overflow: auto !important;
+    }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @include b(scroll) {
+        overflow: auto !important;
+    }
+}

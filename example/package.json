@@ -1,0 +1,27 @@
+{
+    "name": "web",
+    "version": "1.0.0",
+    "description": "我是一个模板",
+    "main": "yma.config.js",
+    "scripts": {
+        "start": "yma dev",
+        "build": "yma build",
+        "lint": "yma lint",
+        "prepare": "husky install",
+        "sh": "sh ./script/build.sh",
+        "docker": "sh ./script/docker.sh"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "copy-webpack-plugin": "11.0.0",
+        "vue": "2.6.11",
+        "vue-template-compiler": "2.6.11",
+        "vue2-perfect-scrollbar": "1.5.56",
+        "yma-cli": "1.0.25"
+    },
+    "devDependencies": {
+        "husky": "8.0.0"
+    }
+}
