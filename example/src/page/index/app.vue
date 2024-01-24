@@ -4,7 +4,7 @@
             <div id="container">
                 <div :style="{height: '1000px', width: '1000px'}">
                     <p>
-                        <span v-for="idx of 10000"> {{ idx }}</span>
+                        <span v-for="idx of 100"> {{ idx }}</span>
                     </p>
                 </div>
             </div>
@@ -28,7 +28,7 @@ export default {
     mounted() {
         const container = document.getElementById('container');
 
-        const scrollbar = (this.scrollbar = new Scrollbar(container));
+        const scrollbar = (this.scrollbar = new Scrollbar(container, {}));
         scrollbar.update();
     },
     methods: {

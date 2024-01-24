@@ -1,6 +1,14 @@
 @import 'yma-csskit/bem.scss';
 
 @include b(scrollbar) {
+    $track: 14;
+    $trackBGColor: transparent;
+    $trackOpacity: 0.6;
+
+    $thumb: 6;
+    $thumbBGColor: #d6d6d6;
+    $thumbBGColor--hover: #adadad;
+
     position: relative;
     overflow: hidden !important;
     overflow-anchor: none;
@@ -13,125 +21,126 @@
         display: none;
         opacity: 0;
         transition: background-color 0.2s linear, opacity 0.2s linear;
-        height: 15px;
+        height: $track * 1px;
         bottom: 0px;
         position: absolute;
 
-        @include pseudo(hover) {
-            background-color: #eee;
-            opacity: 0.9;
-        }
+        // @include pseudo(hover) {
+        //     background-color: #eee;
+        //     opacity: 0.9;
+        // }
 
-        @include pseudo(focus) {
-            background-color: #eee;
-            opacity: 0.9;
-        }
+        // @include pseudo(focus) {
+        //     background-color: #eee;
+        //     opacity: 0.9;
+        // }
 
-        @include m(clicking) {
-            background-color: #eee;
-            opacity: 0.9;
-        }
+        // @include m(clicking) {
+        //     background-color: #eee;
+        //     opacity: 0.9;
+        // }
     }
 
     @include e(track-y) {
         display: none;
         opacity: 0;
         transition: background-color 0.2s linear, opacity 0.2s linear;
-        width: 15px;
+        width: $track * 1px;
         right: 0;
         position: absolute;
 
-        @include pseudo(hover) {
-            background-color: #eee;
-            opacity: 0.9;
-        }
+        // @include pseudo(hover) {
+        //     background-color: #eee;
+        //     opacity: 0.9;
+        // }
 
-        @include pseudo(focus) {
-            background-color: #eee;
-            opacity: 0.9;
-        }
+        // @include pseudo(focus) {
+        //     background-color: #eee;
+        //     opacity: 0.9;
+        // }
 
-        @include m(clicking) {
-            background-color: #eee;
-            opacity: 0.9;
-        }
+        // @include m(clicking) {
+        //     background-color: #eee;
+        //     opacity: 0.9;
+        // }
     }
 
     @include m(active-x) {
         @include e(track-x) {
             display: block;
-            background-color: transparent;
+            background-color: $trackBGColor;
         }
     }
 
     @include m(active-y) {
         @include e(track-y) {
             display: block;
-            background-color: transparent;
+            background-color: $trackBGColor;
         }
     }
 
+    // 容器hover的时
     @include pseudo(hover) {
+        // 轨道的状态
         @include e((track-x, track-y)) {
-            opacity: 0.6;
+            opacity: $trackOpacity;
         }
     }
 
     @include m(focus) {
         @include e((track-x, track-y)) {
-            opacity: 0.6;
+            opacity: $trackOpacity;
         }
     }
 
     @include m(scrolling-x) {
         @include e(track-x) {
-            opacity: 0.6;
+            opacity: $trackOpacity;
         }
     }
 
     @include m(scrolling-y) {
         @include e(track-y) {
-            opacity: 0.6;
+            opacity: $trackOpacity;
         }
     }
 
     @include e(thumb-x) {
-        background-color: #aaa;
-        border-radius: 6px;
+        background: $thumbBGColor;
+        border-radius: $thumb * 1px;
         transition: background-color 0.2s linear, height 0.2s ease-in-out;
-        height: 6px;
-        bottom: 2px;
+        height: $thumb * 1px;
+        bottom: 4px;
         position: absolute;
     }
 
     @include e(thumb-y) {
-        background-color: #aaa;
-        border-radius: 6px;
+        background: $thumbBGColor;
+        border-radius: $thumb * 1px;
         transition: background-color 0.2s linear, width 0.2s ease-in-out;
-        width: 6px;
-        right: 2px;
+        width: $thumb * 1px;
+        right: 4px;
         position: absolute;
     }
 
+    // 轨道hover时
     @include e(track-x) {
         @include pseudo(hover) {
+            // 滑块的状态
             @include e(thumb-x) {
-                background-color: #999;
-                height: 11px;
+                background: $thumbBGColor--hover;
             }
         }
 
         @include pseudo(focus) {
             @include e(thumb-x) {
-                background-color: #999;
-                height: 11px;
+                background: $thumbBGColor--hover;
             }
         }
 
         @include m(clicking) {
             @include e(thumb-x) {
-                background-color: #999;
-                height: 11px;
+                background: $thumbBGColor--hover;
             }
         }
     }
@@ -139,23 +148,30 @@
     @include e(track-y) {
         @include pseudo(hover) {
             @include e(thumb-y) {
-                background-color: #999;
-                width: 11px;
+                background: $thumbBGColor--hover;
             }
         }
 
         @include pseudo(focus) {
             @include e(thumb-y) {
-                background-color: #999;
-                width: 11px;
+                background: $thumbBGColor--hover;
             }
         }
 
         @include m(clicking) {
             @include e(thumb-y) {
-                background-color: #999;
-                width: 11px;
+                background: $thumbBGColor--hover;
             }
+        }
+    }
+
+    &.yma-scrollbar--active-x.yma-scrollbar--active-y {
+        @include e(track-x) {
+            margin-right: $track * 1px;
+        }
+
+        @include e(track-y) {
+            margin-bottom: $track * 1px;
         }
     }
 }

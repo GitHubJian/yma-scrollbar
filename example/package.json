@@ -18,7 +18,6 @@
         "copy-webpack-plugin": "11.0.0",
         "vue": "2.6.11",
         "vue-template-compiler": "2.6.11",
-        "vue2-perfect-scrollbar": "1.5.56",
         "yma-cli": "1.0.25"
     },
     "devDependencies": {
