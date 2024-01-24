@@ -31,17 +31,7 @@ export default function (that) {
 
 function bindMouseScrollHandler(
     that,
-    [
-        containerHeight,
-        contentHeight,
-        pageY,
-        trackYHeight,
-        thumbY,
-        thumbYHeight,
-        scrollTop,
-        y,
-        trackY,
-    ]
+    [containerHeight, contentHeight, pageY, trackYHeight, thumbY, thumbYHeight, scrollTop, y, trackY]
 ) {
     const el = that.el;
 
@@ -54,8 +44,7 @@ function bindMouseScrollHandler(
             e[pageY] = e.touches[0].pageY;
         }
 
-        el[scrollTop] =
-            startingScrollTop + scrollBy * (e[pageY] - startingMousePageY);
+        el[scrollTop] = startingScrollTop + scrollBy * (e[pageY] - startingMousePageY);
 
         addScrollingClass(that, y);
 
@@ -72,11 +61,7 @@ function bindMouseScrollHandler(
 
         $.removeClass(that[trackY], CLASSNAME.clicking);
 
-        that.event.removeListener(
-            that.ownerDocument,
-            'mousemove',
-            mouseMoveHandler
-        );
+        that.event.removeListener(that.ownerDocument, 'mousemove', mouseMoveHandler);
     }
 
     function bindMoves(e, touchMode) {
@@ -86,29 +71,16 @@ function bindMouseScrollHandler(
         }
 
         startingMousePageY = e[pageY];
-        scrollBy =
-            (that[contentHeight] - that[containerHeight]) /
-            (that[trackYHeight] - that[thumbYHeight]);
+        scrollBy = (that[contentHeight] - that[containerHeight]) / (that[trackYHeight] - that[thumbYHeight]);
 
         if (!touchMode) {
-            that.event.addListener(
-                that.ownerDocument,
-                'mousemove',
-                mouseMoveHandler
-            );
-            that.event.addOnceListener(
-                that.ownerDocument,
-                'mouseup',
-                mouseUpHandler
-            );
+            that.event.addListener(that.ownerDocument, 'mousemove', mouseMoveHandler);
+            that.event.addOnceListener(that.ownerDocument, 'mouseup', mouseUpHandler);
 
             e.preventDefault();
-        } else {
-            that.event.addListener(
-                that.ownerDocument,
-                'touchmove',
-                mouseMoveHandler
-            );
+        }
+        else {
+            that.event.addListener(that.ownerDocument, 'touchmove', mouseMoveHandler);
         }
 
         $.addClass(that[trackY], CLASSNAME.clicking);

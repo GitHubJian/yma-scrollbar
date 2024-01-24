@@ -1,28 +1,36 @@
 import {toInt} from './util';
 
 function hasClass(el, className) {
-    if (!el || !className) return false;
-    if (className.indexOf(' ') !== -1)
+    if (!el || !className) {
+        return false;
+    }
+    if (className.indexOf(' ') !== -1) {
         throw new Error('className should not contain space.');
+    }
     if (el.classList) {
         return el.classList.contains(className);
-    } else {
-        return (' ' + el.className + ' ').indexOf(' ' + className + ' ') > -1;
     }
+    return (' ' + el.className + ' ').indexOf(' ' + className + ' ') > -1;
+
 }
 
 function addClass(el, classNames) {
-    if (!el) return;
-    var curClass = el.className;
-    var classes = (classNames || '').split(' ');
+    if (!el) {
+        return;
+    }
+    let curClass = el.className;
+    let classes = (classNames || '').split(' ');
 
-    for (var i = 0, j = classes.length; i < j; i++) {
-        var className = classes[i];
-        if (!className) continue;
+    for (let i = 0, j = classes.length; i < j; i++) {
+        let className = classes[i];
+        if (!className) {
+            continue;
+        }
 
         if (el.classList) {
             el.classList.add(className);
-        } else if (!hasClass(el, className)) {
+        }
+        else if (!hasClass(el, className)) {
             curClass += ' ' + className;
         }
     }
@@ -33,17 +41,22 @@ function addClass(el, classNames) {
 }
 
 function removeClass(el, classNames) {
-    if (!el || !classNames) return;
-    var classes = classNames.split(' ');
-    var curClass = ' ' + el.className + ' ';
+    if (!el || !classNames) {
+        return;
+    }
+    let classes = classNames.split(' ');
+    let curClass = ' ' + el.className + ' ';
 
-    for (var i = 0, j = classes.length; i < j; i++) {
-        var className = classes[i];
-        if (!className) continue;
+    for (let i = 0, j = classes.length; i < j; i++) {
+        let className = classes[i];
+        if (!className) {
+            continue;
+        }
 
         if (el.classList) {
             el.classList.remove(className);
-        } else if (hasClass(el, className)) {
+        }
+        else if (hasClass(el, className)) {
             curClass = curClass.replace(' ' + className + ' ', ' ');
         }
     }
@@ -63,7 +76,9 @@ const camelCase = function (name) {
         .replace(MOZ_HACK_REGEXP, 'Moz$1');
 };
 const getStyle = function (el, styleName) {
-    if (!el) return null;
+    if (!el) {
+        return null;
+    }
 
     if (!styleName) {
         return getComputedStyle(el);
@@ -74,23 +89,27 @@ const getStyle = function (el, styleName) {
         styleName = 'cssFloat';
     }
     try {
-        var computed = document.defaultView.getComputedStyle(el, '');
+        let computed = document.defaultView.getComputedStyle(el, '');
         return el.style[styleName] || computed ? computed[styleName] : null;
-    } catch (e) {
+    }
+    catch (e) {
         return el.style[styleName];
     }
 };
 
 function setStyle(el, styleName, value) {
-    if (!el || !styleName) return;
+    if (!el || !styleName) {
+        return;
+    }
 
     if (typeof styleName === 'object') {
-        for (var prop in styleName) {
+        for (let prop in styleName) {
             if (styleName.hasOwnProperty(prop)) {
                 setStyle(el, prop, styleName[prop]);
             }
         }
-    } else {
+    }
+    else {
         styleName = camelCase(styleName);
 
         if (typeof value === 'number') {
@@ -107,12 +126,12 @@ function div(className) {
     return div;
 }
 
-var elMatches =
-    typeof Element !== 'undefined' &&
-    (Element.prototype.matches ||
-        Element.prototype.webkitMatchesSelector ||
-        Element.prototype.mozMatchesSelector ||
-        Element.prototype.msMatchesSelector);
+let elMatches
+    = typeof Element !== 'undefined'
+    && (Element.prototype.matches
+        || Element.prototype.webkitMatchesSelector
+        || Element.prototype.mozMatchesSelector
+        || Element.prototype.msMatchesSelector);
 
 function matches(el, query) {
     if (!elMatches) {
@@ -131,7 +150,8 @@ function children(el, selector) {
 function remove(el) {
     if (el.remove) {
         el.remove();
-    } else {
+    }
+    else {
         if (el.parentNode) {
             el.parentNode.removeChild(el);
         }
@@ -142,11 +162,11 @@ function width(el) {
     const styles = getStyle(el);
 
     return (
-        toInt(styles.width) +
-        toInt(styles.paddingLeft) +
-        toInt(styles.paddingRight) +
-        toInt(styles.borderLeftWidth) +
-        toInt(styles.borderRightWidth)
+        toInt(styles.width)
+        + toInt(styles.paddingLeft)
+        + toInt(styles.paddingRight)
+        + toInt(styles.borderLeftWidth)
+        + toInt(styles.borderRightWidth)
     );
 }
 

@@ -17,7 +17,8 @@ export default function (that) {
 
         if (Math.abs(deltaY) > Math.abs(deltaX)) {
             hitsBound = isTop || isBottom;
-        } else {
+        }
+        else {
             hitsBound = isLeft || isRight;
         }
 
@@ -74,10 +75,7 @@ export default function (that) {
             if (deltaY && style.overflowY.match(/(scroll|auto)/)) {
                 const maxScrollTop = cursor.scrollHeight - cursor.clientHeight;
                 if (maxScrollTop > 0) {
-                    if (
-                        (cursor.scrollTop > 0 && deltaY < 0) ||
-                        (cursor.scrollTop < maxScrollTop && deltaY > 0)
-                    ) {
+                    if ((cursor.scrollTop > 0 && deltaY < 0) || (cursor.scrollTop < maxScrollTop && deltaY > 0)) {
                         return true;
                     }
                 }
@@ -86,10 +84,7 @@ export default function (that) {
             if (deltaX && style.overflowX.match(/(scroll|auto)/)) {
                 const maxScrollLeft = cursor.scrollWidth - cursor.clientWidth;
                 if (maxScrollLeft > 0) {
-                    if (
-                        (cursor.scrollLeft > 0 && deltaX < 0) ||
-                        (cursor.scrollLeft < maxScrollLeft && deltaX > 0)
-                    ) {
+                    if ((cursor.scrollLeft > 0 && deltaX < 0) || (cursor.scrollLeft < maxScrollLeft && deltaX > 0)) {
                         return true;
                     }
                 }
@@ -112,18 +107,22 @@ export default function (that) {
         if (!that.setting.useBothWheelAxes) {
             el.scrollTop -= deltaY * that.setting.wheelSpeed;
             el.scrollLeft += deltaX * that.setting.wheelSpeed;
-        } else if (that.scrollbarYActive && !that.scrollbarXActive) {
+        }
+        else if (that.scrollbarYActive && !that.scrollbarXActive) {
             if (deltaY) {
                 el.scrollTop -= deltaY * that.setting.wheelSpeed;
-            } else {
+            }
+            else {
                 el.scrollTop += deltaX * that.setting.wheelSpeed;
             }
 
             shouldPrevent = true;
-        } else if (that.scrollbarXActive && !that.scrollbarYActive) {
+        }
+        else if (that.scrollbarXActive && !that.scrollbarYActive) {
             if (deltaX) {
                 el.scrollLeft += deltaX * that.setting.wheelSpeed;
-            } else {
+            }
+            else {
                 el.scrollLeft -= deltaY * that.setting.wheelSpeed;
             }
 
@@ -141,7 +140,8 @@ export default function (that) {
 
     if (typeof window.onwheel !== 'undefined') {
         that.event.addListener(el, 'wheel', mousewheelHandler);
-    } else if (typeof window.onmousewheel !== 'undefined') {
+    }
+    else if (typeof window.onmousewheel !== 'undefined') {
         that.event.addListener(el, 'mousewheel', mousewheelHandler);
     }
 }

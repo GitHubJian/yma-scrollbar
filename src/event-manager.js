@@ -30,9 +30,7 @@ class EventElement {
     }
 
     get isEmpty() {
-        return Object.keys(this.handlers).every(
-            key => this.handlers[key].length === 0
-        );
+        return Object.keys(this.handlers).every(key => this.handlers[key].length === 0);
     }
 }
 

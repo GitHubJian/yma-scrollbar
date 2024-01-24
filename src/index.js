@@ -76,9 +76,7 @@ class Scrollbar {
             return result;
         })();
 
-        this.negativeScrollAdjustment = this.isNegativeScroll
-            ? el.scrollWidth - el.clientWidth
-            : 0;
+        this.negativeScrollAdjustment = this.isNegativeScroll ? el.scrollWidth - el.clientWidth : 0;
 
         this.event = new EventManager();
         this.ownerDocument = el.ownerDocument || document;
@@ -87,18 +85,8 @@ class Scrollbar {
         this._createTrackY();
 
         this.reach = {
-            x:
-                el.scrollLeft <= 0
-                    ? 'start'
-                    : el.scrollLeft >= this.contentWidth - this.containerWidth
-                    ? 'end'
-                    : null,
-            y:
-                el.scrollTop <= 0
-                    ? 'start'
-                    : el.scrollTop >= this.contentHeight - this.containerHeight
-                    ? 'end'
-                    : null,
+            x: el.scrollLeft <= 0 ? 'start' : el.scrollLeft >= this.contentWidth - this.containerWidth ? 'end' : null,
+            y: el.scrollTop <= 0 ? 'start' : el.scrollTop >= this.contentHeight - this.containerHeight ? 'end' : null,
         };
 
         this.isAlive = true;
@@ -134,16 +122,14 @@ class Scrollbar {
         if (isNaN(this.thumbXBottom)) {
             this.isThumbXUsingBottom = false;
             this.thumbXTop = toInt(trackXStyle.top);
-        } else {
+        }
+        else {
             this.isThumbXUsingBottom = true;
         }
 
-        this.trackXBorderWidth =
-            toInt(trackXStyle.borderLeftWidth) +
-            toInt(trackXStyle.borderRightWidth);
+        this.trackXBorderWidth = toInt(trackXStyle.borderLeftWidth) + toInt(trackXStyle.borderRightWidth);
         $.setStyle(this.trackX, {display: 'block'});
-        this.trackXMarginWidth =
-            toInt(trackXStyle.marginLeft) + toInt(trackXStyle.marginRight);
+        this.trackXMarginWidth = toInt(trackXStyle.marginLeft) + toInt(trackXStyle.marginRight);
         $.setStyle(this.trackX, {display: ''});
         this.trackXWidth = null;
         this.trackXRatio = null;
@@ -169,17 +155,15 @@ class Scrollbar {
         if (isNaN(this.thumbYRight)) {
             this.isThumbYUsingRight = false;
             this.thumbYLeft = toInt(trackYStyle.left);
-        } else {
+        }
+        else {
             this.isThumbYUsingRight = true;
         }
 
         this.thumbYOuterWidth = this.isRTL ? $.width(this.thumbY) : null;
-        this.trackYBorderWidth =
-            toInt(trackYStyle.borderTopWidth) +
-            toInt(trackYStyle.borderBottomWidth);
+        this.trackYBorderWidth = toInt(trackYStyle.borderTopWidth) + toInt(trackYStyle.borderBottomWidth);
         $.setStyle(this.trackY, {display: 'block'});
-        this.trackYMarginHeight =
-            toInt(trackYStyle.marginTop) + toInt(trackYStyle.marginBottom);
+        this.trackYMarginHeight = toInt(trackYStyle.marginTop) + toInt(trackYStyle.marginBottom);
         $.setStyle(this.trackY, {display: ''});
         this.trackYHeight = null;
         this.trackYRatio = null;
@@ -200,11 +184,7 @@ class Scrollbar {
 
         updateGeometry(this);
         processScrollDiff(this, 'top', this.el.scrollTop - this.lastScrollTop);
-        processScrollDiff(
-            this,
-            'left',
-            this.el.scrollLeft - this.lastScrollLeft
-        );
+        processScrollDiff(this, 'left', this.el.scrollLeft - this.lastScrollLeft);
 
         this.lastScrollTop = Math.floor(this.el.scrollTop);
         this.lastScrollLeft = this.el.scrollLeft;
@@ -215,19 +195,15 @@ class Scrollbar {
             return;
         }
 
-        this.negativeScrollAdjustment = this.isNegativeScroll
-            ? this.el.scrollWidth - this.el.clientWidth
-            : 0;
+        this.negativeScrollAdjustment = this.isNegativeScroll ? this.el.scrollWidth - this.el.clientWidth : 0;
 
         $.setStyle(this.trackX, {display: 'block'});
         $.setStyle(this.trackY, {display: 'block'});
 
-        this.trackXMarginWidth =
-            toInt($.getStyle(this.trackX, 'margin-left')) +
-            toInt($.getStyle(this.trackX, 'margin-right'));
-        this.trackYMarginHeight =
-            toInt($.getStyle(this.trackY, 'margin-top')) +
-            toInt($.getStyle(this.trackY, 'margin-bottom'));
+        this.trackXMarginWidth
+            = toInt($.getStyle(this.trackX, 'margin-left')) + toInt($.getStyle(this.trackX, 'margin-right'));
+        this.trackYMarginHeight
+            = toInt($.getStyle(this.trackY, 'margin-top')) + toInt($.getStyle(this.trackY, 'margin-bottom'));
 
         $.setStyle(this.trackX, {display: 'none'});
         $.setStyle(this.trackY, {display: 'none'});

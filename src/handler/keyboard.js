@@ -3,10 +3,10 @@ import updateGeometry from '../update-geometry';
 
 function isEditable(el) {
     return (
-        $.matches(el, 'input,[contenteditable]') ||
-        $.matches(el, 'select,[contenteditable]') ||
-        $.matches(el, 'textarea,[contenteditable]') ||
-        $.matches(el, 'button,[contenteditable]')
+        $.matches(el, 'input,[contenteditable]')
+        || $.matches(el, 'select,[contenteditable]')
+        || $.matches(el, 'textarea,[contenteditable]')
+        || $.matches(el, 'button,[contenteditable]')
     );
 }
 
@@ -18,9 +18,7 @@ export default function (that) {
     };
 
     const thumbFocused = function () {
-        return (
-            $.matches(that.thumbX, ':focus') || $.matches(that.thumbY, ':focus')
-        );
+        return $.matches(that.thumbX, ':focus') || $.matches(that.thumbY, ':focus');
     };
 
     function shouldPreventDefault(deltaX, deltaY) {
@@ -32,9 +30,8 @@ export default function (that) {
             }
 
             if (
-                (scrollTop === 0 && deltaY > 0) ||
-                (scrollTop >= that.contentHeight - that.containerHeight &&
-                    deltaY < 0)
+                (scrollTop === 0 && deltaY > 0)
+                || (scrollTop >= that.contentHeight - that.containerHeight && deltaY < 0)
             ) {
                 return !that.setting.wheelPropagation;
             }
@@ -47,9 +44,8 @@ export default function (that) {
             }
 
             if (
-                (scrollLeft === 0 && deltaX < 0) ||
-                (scrollLeft >= that.contentWidth - that.containerWidth &&
-                    deltaX > 0)
+                (scrollLeft === 0 && deltaX < 0)
+                || (scrollLeft >= that.contentWidth - that.containerWidth && deltaX > 0)
             ) {
                 return !that.setting.wheelPropagation;
             }
@@ -59,10 +55,7 @@ export default function (that) {
     }
 
     that.event.addListener(that.ownerDocument, 'keydown', e => {
-        if (
-            (e.isDefaultPrevented && e.isDefaultPrevented()) ||
-            e.defaultPrevented
-        ) {
+        if ((e.isDefaultPrevented && e.isDefaultPrevented()) || e.defaultPrevented) {
             return;
         }
 
@@ -70,13 +63,12 @@ export default function (that) {
             return;
         }
 
-        let activeElement = document.activeElement
-            ? document.activeElement
-            : that.ownerDocument.activeElement;
+        let activeElement = document.activeElement ? document.activeElement : that.ownerDocument.activeElement;
         if (activeElement) {
             if (activeElement.tagName === 'IFRAME') {
                 activeElement = activeElement.contentDocument.activeElement;
-            } else {
+            }
+            else {
                 while (activeElement.shadowRoot) {
                     activeElement = activeElement.shadowRoot.activeElement;
                 }
@@ -94,43 +86,52 @@ export default function (that) {
             case 37: // left
                 if (e.metaKey) {
                     deltaX = -that.contentWidth;
-                } else if (e.altKey) {
+                }
+                else if (e.altKey) {
                     deltaX = -that.containerWidth;
-                } else {
+                }
+                else {
                     deltaX = -30;
                 }
                 break;
             case 38: // up
                 if (e.metaKey) {
                     deltaY = that.contentHeight;
-                } else if (e.altKey) {
+                }
+                else if (e.altKey) {
                     deltaY = that.containerHeight;
-                } else {
+                }
+                else {
                     deltaY = 30;
                 }
                 break;
             case 39: // right
                 if (e.metaKey) {
                     deltaX = that.contentWidth;
-                } else if (e.altKey) {
+                }
+                else if (e.altKey) {
                     deltaX = that.containerWidth;
-                } else {
+                }
+                else {
                     deltaX = 30;
                 }
                 break;
             case 40: // down
                 if (e.metaKey) {
                     deltaY = -that.contentHeight;
-                } else if (e.altKey) {
+                }
+                else if (e.altKey) {
                     deltaY = -that.containerHeight;
-                } else {
+                }
+                else {
                     deltaY = -30;
                 }
                 break;
             case 32: // space bar
                 if (e.shiftKey) {
                     deltaY = that.containerHeight;
-                } else {
+                }
+                else {
                     deltaY = -that.containerHeight;
                 }
                 break;

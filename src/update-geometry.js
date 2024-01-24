@@ -31,24 +31,17 @@ export default function updateGeometry(that) {
         el.appendChild(that.trackY);
     }
 
-    if (
-        !that.setting.suppressScrollX &&
-        that.containerWidth + that.setting.scrollXMarginOffset <
-            that.contentWidth
-    ) {
+    if (!that.setting.suppressScrollX && that.containerWidth + that.setting.scrollXMarginOffset < that.contentWidth) {
         that.thumbXActive = true;
         that.trackXWidth = that.containerWidth - that.trackXMarginWidth;
         that.trackXRatio = that.containerWidth / that.trackXWidth;
-        that.thumbXWidth = getThumbSize(
-            that,
-            toInt((that.trackXWidth * that.containerWidth) / that.contentWidth)
-        );
+        that.thumbXWidth = getThumbSize(that, toInt((that.trackXWidth * that.containerWidth) / that.contentWidth));
         that.thumbXLeft = toInt(
-            ((that.negativeScrollAdjustment + el.scrollLeft) *
-                (that.trackXWidth - that.thumbXWidth)) /
-                (that.contentWidth - that.containerWidth)
+            ((that.negativeScrollAdjustment + el.scrollLeft) * (that.trackXWidth - that.thumbXWidth))
+                / (that.contentWidth - that.containerWidth)
         );
-    } else {
+    }
+    else {
         that.thumbXActive = false;
     }
 
@@ -56,25 +49,16 @@ export default function updateGeometry(that) {
         that.thumbXLeft = that.trackXWidth - that.thumbXWidth;
     }
 
-    if (
-        !that.setting.suppressScrollY &&
-        that.containerHeight + that.setting.scrollYMarginOffset <
-            that.contentHeight
-    ) {
+    if (!that.setting.suppressScrollY && that.containerHeight + that.setting.scrollYMarginOffset < that.contentHeight) {
         that.thumbYActive = true;
         that.trackYHeight = that.containerHeight - that.trackYMarginHeight;
         that.trackYRatio = that.containerHeight / that.trackYHeight;
-        that.thumbYHeight = getThumbSize(
-            that,
-            toInt(
-                (that.trackYHeight * that.containerHeight) / that.contentHeight
-            )
-        );
+        that.thumbYHeight = getThumbSize(that, toInt((that.trackYHeight * that.containerHeight) / that.contentHeight));
         that.thumbYTop = toInt(
-            (roundedScrollTop * (that.trackYHeight - that.thumbYHeight)) /
-                (that.contentHeight - that.containerHeight)
+            (roundedScrollTop * (that.trackYHeight - that.thumbYHeight)) / (that.contentHeight - that.containerHeight)
         );
-    } else {
+    }
+    else {
         that.thumbYActive = false;
     }
 
@@ -86,7 +70,8 @@ export default function updateGeometry(that) {
 
     if (that.thumbXActive) {
         $.addClass(el, CLASSNAME.active('x'));
-    } else {
+    }
+    else {
         $.removeClass(el, CLASSNAME.active('x'));
 
         that.thumbXWidth = 0;
@@ -96,7 +81,8 @@ export default function updateGeometry(that) {
 
     if (that.thumbYActive) {
         $.addClass(el, CLASSNAME.active('y'));
-    } else {
+    }
+    else {
         $.removeClass(el, CLASSNAME.active('y'));
 
         that.thumbYHeight = 0;
@@ -122,18 +108,16 @@ function updateCSS(el, that) {
     const roundedScrollTop = Math.floor(el.scrollTop);
 
     if (that.isRTL) {
-        trackXOffset.left =
-            that.negativeScrollAdjustment +
-            el.scrollLeft +
-            that.containerWidth -
-            that.contentWidth;
-    } else {
+        trackXOffset.left = that.negativeScrollAdjustment + el.scrollLeft + that.containerWidth - that.contentWidth;
+    }
+    else {
         trackXOffset.left = el.scrollLeft;
     }
 
     if (that.isThumbXUsingBottom) {
         trackXOffset.bottom = that.thumbXBottom - roundedScrollTop;
-    } else {
+    }
+    else {
         trackXOffset.top = that.thumbXTop + roundedScrollTop;
     }
 
@@ -146,25 +130,28 @@ function updateCSS(el, that) {
     const trackYOffset = {top: roundedScrollTop, height: that.trackYHeight};
     if (that.isThumbYUsingRight) {
         if (that.isRTL) {
-            trackYOffset.right =
-                that.contentWidth -
-                (that.negativeScrollAdjustment + el.scrollLeft) -
-                that.thumbYRight -
-                that.thumbYOuterWidth -
-                9;
-        } else {
+            trackYOffset.right
+                = that.contentWidth
+                - (that.negativeScrollAdjustment + el.scrollLeft)
+                - that.thumbYRight
+                - that.thumbYOuterWidth
+                - 9;
+        }
+        else {
             trackYOffset.right = that.thumbYRight - el.scrollLeft;
         }
-    } else {
+    }
+    else {
         if (that.isRTL) {
-            trackYOffset.left =
-                that.negativeScrollAdjustment +
-                el.scrollLeft +
-                that.containerWidth * 2 -
-                that.contentWidth -
-                that.thumbYLeft -
-                that.thumbYOuterWidth;
-        } else {
+            trackYOffset.left
+                = that.negativeScrollAdjustment
+                + el.scrollLeft
+                + that.containerWidth * 2
+                - that.contentWidth
+                - that.thumbYLeft
+                - that.thumbYOuterWidth;
+        }
+        else {
             trackYOffset.left = that.thumbYLeft + el.scrollLeft;
         }
     }
