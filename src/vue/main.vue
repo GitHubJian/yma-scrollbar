@@ -37,7 +37,7 @@ export default {
         },
     },
     mounted() {
-        this.create();
+        this.init();
 
         if (this.watchOptionsEnabled) {
             this.createWatcher();
@@ -69,6 +69,16 @@ export default {
                     deep: true,
                 }
             );
+        },
+        scrollTop(y) {
+            this.scrollbar.scrollTop(y);
+        },
+        scrollLeft(x) {
+            this.scrollbar.scrollLeft(x);
+        },
+        scrollTo(x, y) {
+            this.scrollbar.scrollLeft(x);
+            this.scrollbar.scrollTop(y);
         },
         update() {
             if (this.scrollbar) {

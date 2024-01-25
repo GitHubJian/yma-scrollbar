@@ -19,6 +19,8 @@ const container = document.getElementById('container');
 const scrollbar = new Scrollbar(container);
 scrollbar.update(); // 更新
 scrollbar.destory(); // 销毁;
+scrollbar.scrollTop(y); // 滚动到指定位置
+scrollbar.scrollLeft(x); // 滚动到指定位置
 ```
 
 ## Warning
