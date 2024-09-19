@@ -22,14 +22,9 @@ export default {
     componentName: 'YmaScrollbar',
     props: {
         isEmpty: Boolean,
-        options: {
-            type: Object,
-            required: false,
-            default: () => {},
-        },
+        options: {},
         watchOptionsEnabled: {
             type: Boolean,
-            required: false,
             default: false,
         },
     },
@@ -49,7 +44,7 @@ export default {
         },
     },
     mounted() {
-        this.init();
+        this.create();
 
         if (this.watchOptionsEnabled) {
             this.createWatcher();
@@ -64,10 +59,10 @@ export default {
         this.destroy();
     },
     methods: {
-        init() {
+        create() {
             if (!this.scrollbar) {
                 const el = this.$refs.scrollbar;
-                this.scrollbar = new Scrollbar(el, this.options);
+                this.scrollbar = new Scrollbar(el, this.options || {});
             }
         },
         createWatcher() {
@@ -111,14 +106,16 @@ export default {
 </script>
 
 <style lang="scss">
-.yma-scrollbar {
-    &__inner {
+@import "yma-csskit/bem.scss";
+
+@include b(scrollbar) {
+    @include e(inner) {
         width: 100%;
         min-height: 100%;
     }
 
-    &.is-empty {
-        &__inner {
+    @include when(empty) {
+        @include e(inner) {
             height: 100%;
         }
     }
