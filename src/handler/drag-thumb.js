@@ -31,7 +31,7 @@ export default function (that) {
 
 function bindMouseScrollHandler(
     that,
-    [containerHeight, contentHeight, pageY, trackYHeight, thumbY, thumbYHeight, scrollTop, y, trackY]
+    [containerHeight, contentHeight, pageY, trackYHeight, thumbY, thumbYHeight, scrollTop, y, trackY],
 ) {
     const el = that.el;
 
@@ -78,8 +78,7 @@ function bindMouseScrollHandler(
             that.event.addOnceListener(that.ownerDocument, 'mouseup', mouseUpHandler);
 
             e.preventDefault();
-        }
-        else {
+        } else {
             that.event.addListener(that.ownerDocument, 'touchmove', mouseMoveHandler);
         }
 

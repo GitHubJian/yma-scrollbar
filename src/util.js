@@ -4,10 +4,10 @@ export function isWebkit() {
 
 export function supportsTouch() {
     return (
-        typeof window !== 'undefined'
-        && ('ontouchstart' in window
-            || ('maxTouchPoints' in window.navigator && window.navigator.maxTouchPoints > 0)
-            || (window.DocumentTouch && document instanceof window.DocumentTouch))
+        typeof window !== 'undefined' &&
+        ('ontouchstart' in window ||
+            ('maxTouchPoints' in window.navigator && window.navigator.maxTouchPoints > 0) ||
+            (window.DocumentTouch && document instanceof window.DocumentTouch))
     );
 }
 

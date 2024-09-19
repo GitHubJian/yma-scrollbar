@@ -29,6 +29,8 @@ function defaults() {
         useBothWheelAxes: false, // 是否同时使用横向和纵向滚动条
         wheelPropagation: true, // 控制鼠标滚轮事件的传播方式，决定滚轮事件是否传递给父元素
         wheelSpeed: 1, // 控制使用鼠标滚轮时的滚动速度
+        outerYEnabled: false,
+        outerXEnabled: false,
     };
 }
 
@@ -50,11 +52,16 @@ class Scrollbar {
             throw new Error('Scrollbar 需要传入一个已存在的 HTMLElement');
         }
 
+        const that = this;
+
         this.el = el;
 
         $.addClass(el, CLASSNAME.main);
 
         this.setting = Object.assign({}, defaults(), setting);
+
+        this.setting.outerYEnabled && $.addClass(el, CLASSNAME.outer('y'));
+        this.setting.outerXEnabled && $.addClass(el, CLASSNAME.outer('x'));
 
         this.containerWidth = null;
         this.containerHeight = null;
@@ -76,9 +83,7 @@ class Scrollbar {
             return result;
         })();
 
-        this.negativeScrollAdjustment = this.isNegativeScroll
-            ? el.scrollWidth - el.clientWidth
-            : 0;
+        this.negativeScrollAdjustment = this.isNegativeScroll ? el.scrollWidth - el.clientWidth : 0;
 
         this.event = new EventManager();
         this.ownerDocument = el.ownerDocument || document;
@@ -87,31 +92,24 @@ class Scrollbar {
         this._createTrackY();
 
         this.reach = {
-            x:
-                el.scrollLeft <= 0
-                    ? 'start'
-                    : el.scrollLeft >= this.contentWidth - this.containerWidth
-                    ? 'end'
-                    : null,
-            y:
-                el.scrollTop <= 0
-                    ? 'start'
-                    : el.scrollTop >= this.contentHeight - this.containerHeight
-                    ? 'end'
-                    : null,
+            x: el.scrollLeft <= 0 ? 'start' : el.scrollLeft >= this.contentWidth - this.containerWidth ? 'end' : null,
+            y: el.scrollTop <= 0 ? 'start' : el.scrollTop >= this.contentHeight - this.containerHeight ? 'end' : null,
         };
 
         this.isAlive = true;
-
-        this.setting.handlers.forEach(handlerName => {
-            HANDLERS[handlerName](this);
-        });
 
         this.lastScrollTop = Math.floor(el.scrollTop);
         this.lastScrollLeft = el.scrollLeft;
         this.event.addListener(this.el, 'scroll', e => this._onScroll(e));
 
         updateGeometry(this);
+
+        // 延迟事件绑定 1000 ms 应该足够了
+        setTimeout(function () {
+            that.setting.handlers.forEach(handlerName => {
+                HANDLERS[handlerName](that);
+            });
+        }, 1000);
     }
 
     // 创建 X 滚动条
@@ -138,12 +136,9 @@ class Scrollbar {
             this.isThumbXUsingBottom = true;
         }
 
-        this.trackXBorderWidth =
-            toInt(trackXStyle.borderLeftWidth) +
-            toInt(trackXStyle.borderRightWidth);
+        this.trackXBorderWidth = toInt(trackXStyle.borderLeftWidth) + toInt(trackXStyle.borderRightWidth);
         $.setStyle(this.trackX, {display: 'block'});
-        this.trackXMarginWidth =
-            toInt(trackXStyle.marginLeft) + toInt(trackXStyle.marginRight);
+        this.trackXMarginWidth = toInt(trackXStyle.marginLeft) + toInt(trackXStyle.marginRight);
         $.setStyle(this.trackX, {display: ''});
         this.trackXWidth = null;
         this.trackXRatio = null;
@@ -174,12 +169,9 @@ class Scrollbar {
         }
 
         this.thumbYOuterWidth = this.isRTL ? $.width(this.thumbY) : null;
-        this.trackYBorderWidth =
-            toInt(trackYStyle.borderTopWidth) +
-            toInt(trackYStyle.borderBottomWidth);
+        this.trackYBorderWidth = toInt(trackYStyle.borderTopWidth) + toInt(trackYStyle.borderBottomWidth);
         $.setStyle(this.trackY, {display: 'block'});
-        this.trackYMarginHeight =
-            toInt(trackYStyle.marginTop) + toInt(trackYStyle.marginBottom);
+        this.trackYMarginHeight = toInt(trackYStyle.marginTop) + toInt(trackYStyle.marginBottom);
         $.setStyle(this.trackY, {display: ''});
         this.trackYHeight = null;
         this.trackYRatio = null;
@@ -200,11 +192,7 @@ class Scrollbar {
 
         updateGeometry(this);
         processScrollDiff(this, 'top', this.el.scrollTop - this.lastScrollTop);
-        processScrollDiff(
-            this,
-            'left',
-            this.el.scrollLeft - this.lastScrollLeft
-        );
+        processScrollDiff(this, 'left', this.el.scrollLeft - this.lastScrollLeft);
 
         this.lastScrollTop = Math.floor(this.el.scrollTop);
         this.lastScrollLeft = this.el.scrollLeft;
@@ -228,19 +216,15 @@ class Scrollbar {
             return;
         }
 
-        this.negativeScrollAdjustment = this.isNegativeScroll
-            ? this.el.scrollWidth - this.el.clientWidth
-            : 0;
+        this.negativeScrollAdjustment = this.isNegativeScroll ? this.el.scrollWidth - this.el.clientWidth : 0;
 
         $.setStyle(this.trackX, {display: 'block'});
         $.setStyle(this.trackY, {display: 'block'});
 
         this.trackXMarginWidth =
-            toInt($.getStyle(this.trackX, 'margin-left')) +
-            toInt($.getStyle(this.trackX, 'margin-right'));
+            toInt($.getStyle(this.trackX, 'margin-left')) + toInt($.getStyle(this.trackX, 'margin-right'));
         this.trackYMarginHeight =
-            toInt($.getStyle(this.trackY, 'margin-top')) +
-            toInt($.getStyle(this.trackY, 'margin-bottom'));
+            toInt($.getStyle(this.trackY, 'margin-top')) + toInt($.getStyle(this.trackY, 'margin-bottom'));
 
         $.setStyle(this.trackX, {display: 'none'});
         $.setStyle(this.trackY, {display: 'none'});

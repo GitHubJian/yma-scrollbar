@@ -11,7 +11,6 @@ function hasClass(el, className) {
         return el.classList.contains(className);
     }
     return (' ' + el.className + ' ').indexOf(' ' + className + ' ') > -1;
-
 }
 
 function addClass(el, classNames) {
@@ -29,8 +28,7 @@ function addClass(el, classNames) {
 
         if (el.classList) {
             el.classList.add(className);
-        }
-        else if (!hasClass(el, className)) {
+        } else if (!hasClass(el, className)) {
             curClass += ' ' + className;
         }
     }
@@ -44,6 +42,11 @@ function removeClass(el, classNames) {
     if (!el || !classNames) {
         return;
     }
+
+    function trim(str) {
+        return str.replace(/^\s+|\s+$/g, '');
+    }
+
     let classes = classNames.split(' ');
     let curClass = ' ' + el.className + ' ';
 
@@ -55,8 +58,7 @@ function removeClass(el, classNames) {
 
         if (el.classList) {
             el.classList.remove(className);
-        }
-        else if (hasClass(el, className)) {
+        } else if (hasClass(el, className)) {
             curClass = curClass.replace(' ' + className + ' ', ' ');
         }
     }
@@ -91,8 +93,7 @@ const getStyle = function (el, styleName) {
     try {
         let computed = document.defaultView.getComputedStyle(el, '');
         return el.style[styleName] || computed ? computed[styleName] : null;
-    }
-    catch (e) {
+    } catch (e) {
         return el.style[styleName];
     }
 };
@@ -108,8 +109,7 @@ function setStyle(el, styleName, value) {
                 setStyle(el, prop, styleName[prop]);
             }
         }
-    }
-    else {
+    } else {
         styleName = camelCase(styleName);
 
         if (typeof value === 'number') {
@@ -126,12 +126,12 @@ function div(className) {
     return div;
 }
 
-let elMatches
-    = typeof Element !== 'undefined'
-    && (Element.prototype.matches
-        || Element.prototype.webkitMatchesSelector
-        || Element.prototype.mozMatchesSelector
-        || Element.prototype.msMatchesSelector);
+let elMatches =
+    typeof Element !== 'undefined' &&
+    (Element.prototype.matches ||
+        Element.prototype.webkitMatchesSelector ||
+        Element.prototype.mozMatchesSelector ||
+        Element.prototype.msMatchesSelector);
 
 function matches(el, query) {
     if (!elMatches) {
@@ -150,8 +150,7 @@ function children(el, selector) {
 function remove(el) {
     if (el.remove) {
         el.remove();
-    }
-    else {
+    } else {
         if (el.parentNode) {
             el.parentNode.removeChild(el);
         }
@@ -162,11 +161,11 @@ function width(el) {
     const styles = getStyle(el);
 
     return (
-        toInt(styles.width)
-        + toInt(styles.paddingLeft)
-        + toInt(styles.paddingRight)
-        + toInt(styles.borderLeftWidth)
-        + toInt(styles.borderRightWidth)
+        toInt(styles.width) +
+        toInt(styles.paddingLeft) +
+        toInt(styles.paddingRight) +
+        toInt(styles.borderLeftWidth) +
+        toInt(styles.borderRightWidth)
     );
 }
 

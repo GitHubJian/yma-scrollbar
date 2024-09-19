@@ -1,7 +1,7 @@
 @import 'yma-csskit/bem.scss';
 
 @include b(scrollbar) {
-    $track: 14;
+    $track: 17; // 原本是 14
     $trackBGColor: transparent;
     $trackOpacity: 0.6;
 
@@ -14,7 +14,6 @@
     overflow-anchor: none;
     -ms-overflow-style: none;
     touch-action: auto;
-    -ms-touch-action: auto;
     height: 100%;
 
     @include e(track-x) {
@@ -65,11 +64,19 @@
         // }
     }
 
+    @include m(outer-x) {
+        padding-bottom: $track * 1px;
+    }
+
     @include m(active-x) {
         @include e(track-x) {
             display: block;
             background-color: $trackBGColor;
         }
+    }
+
+    @include m(outer-y) {
+        padding-right: $track * 1px;
     }
 
     @include m(active-y) {
@@ -119,7 +126,7 @@
         border-radius: $thumb * 1px;
         transition: background-color 0.2s linear, width 0.2s ease-in-out;
         width: $thumb * 1px;
-        right: 4px;
+        right: 5px; // 原本是 4
         position: absolute;
     }
 

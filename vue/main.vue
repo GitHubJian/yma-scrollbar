@@ -1,20 +1,31 @@
+<template>
+    <div
+        ref="scrollbar"
+        :class="{
+            'yma-scrollbar': true,
+            'is-empty': isEmpty,
+        }"
+        @click="handleClick"
+    >
+        <div class="yma-scrollbar__inner">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+
 <script>
-import '../index.scss';
-import Scrollbar from '../index';
+import '../src/index.scss';
+import Scrollbar from '../src/index';
 
 export default {
     name: 'YmaScrollbar',
     componentName: 'YmaScrollbar',
     props: {
+        isEmpty: Boolean,
         options: {
             type: Object,
             required: false,
             default: () => {},
-        },
-        tag: {
-            type: String,
-            required: false,
-            default: 'div',
         },
         watchOptionsEnabled: {
             type: Boolean,
@@ -31,7 +42,8 @@ export default {
         watchOptionsEnabled(shouldWatch) {
             if (!shouldWatch && this.watcher) {
                 this.watcher();
-            } else {
+            }
+            else {
                 this.createWatcher();
             }
         },
@@ -55,7 +67,7 @@ export default {
         init() {
             if (!this.scrollbar) {
                 const el = this.$refs.scrollbar;
-                this.scrollbar = new Scrollbar(el);
+                this.scrollbar = new Scrollbar(el, this.options);
             }
         },
         createWatcher() {
@@ -91,16 +103,24 @@ export default {
                 this.scrollbar = null;
             }
         },
-    },
-    render(h) {
-        return h(
-            this.tag,
-            {
-                ref: 'scrollbar',
-                on: this.$listeners,
-            },
-            this.$slots.default
-        );
+        handleClick() {
+            this.$emit('click');
+        },
     },
 };
 </script>
+
+<style lang="scss">
+.yma-scrollbar {
+    &__inner {
+        width: 100%;
+        min-height: 100%;
+    }
+
+    &.is-empty {
+        &__inner {
+            height: 100%;
+        }
+    }
+}
+</style>

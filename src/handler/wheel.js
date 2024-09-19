@@ -17,8 +17,7 @@ export default function (that) {
 
         if (Math.abs(deltaY) > Math.abs(deltaX)) {
             hitsBound = isTop || isBottom;
-        }
-        else {
+        } else {
             hitsBound = isLeft || isRight;
         }
 
@@ -107,22 +106,18 @@ export default function (that) {
         if (!that.setting.useBothWheelAxes) {
             el.scrollTop -= deltaY * that.setting.wheelSpeed;
             el.scrollLeft += deltaX * that.setting.wheelSpeed;
-        }
-        else if (that.scrollbarYActive && !that.scrollbarXActive) {
+        } else if (that.scrollbarYActive && !that.scrollbarXActive) {
             if (deltaY) {
                 el.scrollTop -= deltaY * that.setting.wheelSpeed;
-            }
-            else {
+            } else {
                 el.scrollTop += deltaX * that.setting.wheelSpeed;
             }
 
             shouldPrevent = true;
-        }
-        else if (that.scrollbarXActive && !that.scrollbarYActive) {
+        } else if (that.scrollbarXActive && !that.scrollbarYActive) {
             if (deltaX) {
                 el.scrollLeft += deltaX * that.setting.wheelSpeed;
-            }
-            else {
+            } else {
                 el.scrollLeft -= deltaY * that.setting.wheelSpeed;
             }
 
@@ -140,8 +135,7 @@ export default function (that) {
 
     if (typeof window.onwheel !== 'undefined') {
         that.event.addListener(el, 'wheel', mousewheelHandler);
-    }
-    else if (typeof window.onmousewheel !== 'undefined') {
+    } else if (typeof window.onmousewheel !== 'undefined') {
         that.event.addListener(el, 'mousewheel', mousewheelHandler);
     }
 }

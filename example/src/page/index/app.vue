@@ -1,13 +1,18 @@
 <template>
     <div>
         <div class="wrapper">
-            <div id="container">
-                <div :style="{height: '1000px', width: '1000px'}">
+            <scrollbar
+                :options="{
+                    outerYEnabled: true,
+                    outerXEnabled: true,
+                }"
+            >
+                <div style="width: 10000px;">
                     <p>
-                        <span v-for="idx of 100"> {{ idx }}</span>
+                        <span v-for="idx of 1000"> {{ idx }}</span>
                     </p>
                 </div>
-            </div>
+            </scrollbar>
         </div>
 
         <div @click="destoryHandler">Destory</div>
@@ -15,34 +20,28 @@
 </template>
 
 <script>
-import '../../../../src/index.scss';
-import Scrollbar from '../../../../src';
+import Scrollbar from '../../../../vue';
 
 export default {
-    components: {},
+    components: {
+        Scrollbar,
+    },
     data() {
         return {
             scrollbar: null,
         };
     },
-    mounted() {
-        const container = document.getElementById('container');
-
-        const scrollbar = (this.scrollbar = new Scrollbar(container, {}));
-        scrollbar.update();
-    },
+    mounted() {},
     methods: {
-        destoryHandler() {
-            this.scrollbar.destroy();
-        },
+        destoryHandler() {},
     },
 };
 </script>
 
 <style lang="scss">
 .wrapper {
-    height: 200px;
     width: 400px;
+    height: 200px;
     border: 1px solid red;
 }
 

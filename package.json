@@ -1,12 +1,8 @@
 {
     "name": "yma-scrollbar",
-    "version": "1.0.2",
-    "description": "",
+    "version": "1.0.8",
+    "description": "自定义滚动条样式",
     "main": "./src/index.js",
-    "directories": {
-        "example": "example"
-    },
-    "scripts": {},
     "repository": {
         "type": "git",
         "url": "git+https://github.com/GitHubJian/yma-scrollbar.git"
@@ -14,11 +10,8 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/GitHubJian/yma-scrollbar/issues"
-    },
     "homepage": "https://github.com/GitHubJian/yma-scrollbar#readme",
     "dependencies": {
-        "yma-csskit": "1.0.1"
+        "yma-csskit": "1.0.2"
     }
 }

@@ -4,6 +4,7 @@ export default {
     clicking: 'yma-scrollbar--clicking',
     hover: 'yma-scrollbar--hover',
     active: axis => `yma-scrollbar--active-${axis}`,
+    outer: axis => `yma-scrollbar--outer-${axis}`,
     scrolling: axis => `yma-scrollbar--scrolling-${axis}`,
     rtl: 'yma-scrollbar--rtl',
 
