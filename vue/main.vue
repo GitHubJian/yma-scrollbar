@@ -1,13 +1,14 @@
 <template>
     <div
-        ref="scrollbar"
-        :class="{
-            'yma-scrollbar': true,
-            'is-empty': isEmpty,
-        }"
+        ref="scrollbar" class="yma-scrollbar"
         @click="handleClick"
     >
-        <div class="yma-scrollbar__inner">
+        <div
+            class="yma-scrollbar__inner"
+            :class="{
+                'is-empty': isEmpty,
+            }"
+        >
             <slot></slot>
         </div>
     </div>
@@ -114,8 +115,8 @@ export default {
         min-height: 100%;
     }
 
-    @include when(empty) {
-        @include e(inner) {
+    @include e(inner) {
+        @include when(empty) {
             height: 100%;
         }
     }
