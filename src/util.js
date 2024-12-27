@@ -45,6 +45,7 @@ export function toInt(x) {
     return parseInt(x, 10) || 0;
 }
 
+const ua = window.navigator.userAgent.toLowerCase();
 export function isIPad() {
     return /iPad/i.test(ua) || (window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1);
 }
