@@ -77,11 +77,6 @@ export default function (that) {
             return;
         }
 
-        if (isIPad()) {
-            ownerDocument.dispatchEvent(new Event('mousedown'));
-            ownerDocument.dispatchEvent(new Event('mouseup'));
-        }
-
         const touch = getTouch(e);
 
         startOffset.pageX = touch.pageX;
