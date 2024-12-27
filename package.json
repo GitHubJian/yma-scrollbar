@@ -1,17 +1,25 @@
 {
     "name": "yma-scrollbar",
-    "version": "1.0.10",
+    "version": "1.0.12",
     "description": "自定义滚动条样式",
     "main": "./src/index.js",
+    "scripts": {
+        "lint": "yma lint"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/GitHubJian/yma-scrollbar.git"
     },
+    "files": ["src", "vue"],
     "keywords": [],
     "author": "",
     "license": "ISC",
     "homepage": "https://github.com/GitHubJian/yma-scrollbar#readme",
     "dependencies": {
         "yma-csskit": "1.0.2"
+    },
+    "devDependencies": {
+        "yma-cli": "1.0.44",
+        "yma-cli-lint": "1.0.44"
     }
 }

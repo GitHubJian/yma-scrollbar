@@ -1,3 +1,25 @@
+import $ from './dom';
+
+export function isEditable(el) {
+    return (
+        $.matches(el, 'input,[contenteditable]') ||
+        $.matches(el, 'select,[contenteditable]') ||
+        $.matches(el, 'textarea,[contenteditable]') ||
+        $.matches(el, 'button,[contenteditable]')
+    );
+}
+
+export function outerWidth(element) {
+    const styles = $.getStyle(element);
+    return (
+        toInt(styles.width) +
+        toInt(styles.paddingLeft) +
+        toInt(styles.paddingRight) +
+        toInt(styles.borderLeftWidth) +
+        toInt(styles.borderRightWidth)
+    );
+}
+
 export function isWebkit() {
     return typeof document !== 'undefined' && 'WebkitAppearance' in document.documentElement.style;
 }
@@ -21,4 +43,8 @@ export function isChrome() {
 
 export function toInt(x) {
     return parseInt(x, 10) || 0;
+}
+
+export function isIPad() {
+    return /iPad/i.test(ua) || (window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1);
 }

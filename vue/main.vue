@@ -1,6 +1,7 @@
 <template>
     <div
         ref="scrollbar" class="yma-scrollbar"
+        :tabindex="-1"
         @click="handleClick"
     >
         <div

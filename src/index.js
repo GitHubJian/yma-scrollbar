@@ -4,6 +4,7 @@ import clickTrack from './handler/click-track';
 import dragThumb from './handler/drag-thumb';
 import keyboard from './handler/keyboard';
 import wheel from './handler/wheel';
+import touch from './handler/touch';
 import CLASSNAME from './classname';
 import {toInt} from './util';
 import updateGeometry from './update-geometry';
@@ -11,13 +12,7 @@ import processScrollDiff from './process-scroll-diff';
 
 function defaults() {
     return {
-        handlers: [
-            'click-track',
-            'drag-thumb',
-            'keyboard',
-            'wheel',
-            // 'touch'
-        ],
+        handlers: ['click-track', 'drag-thumb', 'keyboard', 'wheel', 'touch'],
         maxThumbLength: null, // 设置滚动条的最大长度，可以用来限制滚动条的最大长度
         minThumbLength: null, // 设置滚动条的最小长度，当内容区域可以完全显示时，滚动条会自动隐藏，所以这个参数可以用来设置滚动条的最小可见长度
         scrollingThreshold: 1000, // 设置滚动速度的阈值，当鼠标滚轮或触摸滑动速度超过该阈值时，滚动速度会加快
@@ -39,7 +34,7 @@ const HANDLERS = {
     'drag-thumb': dragThumb,
     keyboard,
     wheel,
-    // touch,
+    touch,
 };
 
 class Scrollbar {
